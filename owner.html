@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>MTEC Auto-Stake — Owner</title>
+
+  <link rel="stylesheet" href="style.css" />
+
+  <script src="https://cdn.jsdelivr.net/npm/ethers@5.7.2/dist/ethers.umd.min.js"></script>
+  <script src="config.js"></script>
+  <script src="owner.js" defer></script>
+</head>
+
+<body>
+  <div class="wrap">
+    <h1 class="title">MTEC Auto-Stake — Owner Panel</h1>
+
+    <button id="btnConnect" class="btn btn-primary">Connect Wallet (Owner)</button>
+
+    <div class="small">
+      <span id="chainText">chainId: -</span>
+      <span id="walletText">wallet: -</span>
+      <span id="ownerText">owner: -</span>
+      <span id="isOwnerText">status: -</span>
+    </div>
+
+    <div class="card">
+      <h2>สถานะสัญญา</h2>
+      <div class="small" style="justify-content:flex-start; gap:14px;">
+        <span id="apyText">APY: -</span>
+        <span id="lockText">Lock: -</span>
+        <span id="enabledText">Enabled: -</span>
+        <span id="refRateText">Ref: -</span>
+      </div>
+      <div class="row">
+        <button id="btnReload" class="btn">Reload</button>
+        <button id="btnOpenBscscan" class="btn">Open Contract (BscScan)</button>
+      </div>
+      <div id="msg" class="msg"></div>
+    </div>
+
+    <div class="card">
+      <h2>ปรับ APY / Lock / Enable</h2>
+
+      <label>APY (%)</label>
+      <input id="inApyPct" type="number" step="0.01" placeholder="เช่น 30" />
+
+      <label>Lock (วัน)</label>
+      <input id="inLockDays" type="number" step="1" placeholder="เช่น 180" />
+
+      <label>Enabled</label>
+      <select id="inEnabled">
+        <option value="true">true (เปิด)</option>
+        <option value="false">false (ปิด)</option>
+      </select>
+
+      <div class="row">
+        <button id="btnSetParams" class="btn btn-primary">Set Params</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>ปรับ Referral Rates (bps)</h2>
+      <div class="small" style="justify-content:flex-start;">
+        1% = 100 bps, 10% = 1000 bps
+      </div>
+
+      <label>Ref1 (bps)</label>
+      <input id="inRef1" type="number" step="1" placeholder="เช่น 1000" />
+
+      <label>Ref2 (bps)</label>
+      <input id="inRef2" type="number" step="1" placeholder="เช่น 300" />
+
+      <label>Ref3 (bps)</label>
+      <input id="inRef3" type="number" step="1" placeholder="เช่น 200" />
+
+      <div class="row">
+        <button id="btnSetRefRates" class="btn btn-primary">Set Referral Rates</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>ถอนเหรียญจากสัญญา</h2>
+
+      <label>Withdraw USDT (จำนวน)</label>
+      <input id="inWdUsdt" type="number" step="0.000001" placeholder="เช่น 50" />
+
+      <label>To (ปลายทาง)</label>
+      <input id="inToUsdt" placeholder="ใส่ address ปลายทาง (ว่าง = ส่งเข้ากระเป๋า owner ที่เชื่อมอยู่)" />
+
+      <div class="row">
+        <button id="btnWithdrawUSDT" class="btn btn-primary">Withdraw USDT</button>
+      </div>
+
+      <hr style="border:none;border-top:1px solid rgba(10,60,120,.12);margin:14px 0;">
+
+      <label>Withdraw MTEC (จำนวน)</label>
+      <input id="inWdMtec" type="number" step="0.000001" placeholder="เช่น 1000" />
+
+      <label>To (ปลายทาง)</label>
+      <input id="inToMtec" placeholder="ใส่ address ปลายทาง (ว่าง = ส่งเข้ากระเป๋า owner ที่เชื่อมอยู่)" />
+
+      <div class="row">
+        <button id="btnWithdrawMTEC" class="btn btn-primary">Withdraw MTEC</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h2>ตั้งค่าแพ็คเกจ (Set Package)</h2>
+      <div class="small" style="justify-content:flex-start;">
+        ใช้ decimals: USDT 18, MTEC 18 (ตาม config.js)
+      </div>
+
+      <label>Package ID</label>
+      <input id="inPkgId" type="number" step="1" placeholder="เช่น 0" />
+
+      <label>USDT In</label>
+      <input id="inPkgUsdt" type="number" step="0.000001" placeholder="เช่น 10" />
+
+      <label>MTEC Out</label>
+      <input id="inPkgMtec" type="number" step="0.000001" placeholder="เช่น 370" />
+
+      <label>Active</label>
+      <select id="inPkgActive">
+        <option value="true">true (เปิด)</option>
+        <option value="false">false (ปิด)</option>
+      </select>
+
+      <div class="row">
+        <button id="btnSetPackage" class="btn btn-primary">Set Package</button>
+      </div>
+    </div>
+
+    <div class="foot">
+      Contract: <span id="contractText" class="mono">-</span>
+    </div>
+  </div>
+</body>
+</html>
